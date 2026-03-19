@@ -1,6 +1,7 @@
 import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/content_parser/lexer.dart';
 import 'package:syrenity_flutter_client_api/src/content_parser/parser.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 import 'user.dart';
 import 'reaction.dart';
@@ -87,5 +88,9 @@ class SyMessage {
 
   Future<void> delete() async {
     await client.http.rawDelete('/api/channels/$channelId/messages/$id', null);
+  }
+
+  Future<SyChannel> fetchChannel() async {
+    return await client.channels.fetch(channelId);
   }
 }

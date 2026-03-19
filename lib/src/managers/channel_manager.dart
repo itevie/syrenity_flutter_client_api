@@ -16,4 +16,11 @@ class ChannelManager {
       },
     );
   }
+
+  Future<SyChannel> fetch(int id) async {
+    return await client.http.get<SyChannel, Map<String, dynamic>>(
+      "/api/channels/$id",
+      (c, x) => SyChannel.build(client, x),
+    );
+  }
 }

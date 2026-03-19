@@ -50,4 +50,12 @@ class SyApplication {
 
     return app;
   }
+
+  Future<void> inviteTo(int serverId) async {
+    await client.http.post(
+      "/applications/$botAccount/servers/$serverId",
+      {},
+      null,
+    );
+  }
 }

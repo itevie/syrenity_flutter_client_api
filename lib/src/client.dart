@@ -129,9 +129,7 @@ class SyrenityClient {
   }
 
   String makeProxyUrl(String url) {
-    print("proxy");
     if (!useProxy) return url;
-    print("$baseUrl/api/proxy?url=${Uri.encodeComponent(url)}");
     return "$baseUrl/api/proxy?url=${Uri.encodeComponent(url)}";
   }
 }

@@ -7,7 +7,6 @@ class SyFileBase {
   SyFileBase(this.client, {required this.badUrl});
 
   String? from(String? url) {
-    print(url);
     if (url == null) return badUrl;
 
     if (RegExp(
@@ -15,7 +14,7 @@ class SyFileBase {
       caseSensitive: false,
     ).hasMatch(url)) {
       return "${client.baseUrl}/files/$url";
-    } else if (url.startsWith("http://")) {
+    } else if (url.startsWith("http://") || url.startsWith("https://")) {
       return client.makeProxyUrl(url);
     } else {
       return badUrl;

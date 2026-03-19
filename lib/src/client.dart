@@ -14,6 +14,7 @@ import 'package:syrenity_flutter_client_api/src/socket.dart';
 class SyrenityClient {
   final String baseUrl;
   final String websocketUrl;
+  final bool useProxy;
 
   late final HttpClient http = HttpClient(this);
   late final UserManager users = UserManager(this);
@@ -47,7 +48,11 @@ class SyrenityClient {
     _user = user;
   }
 
-  SyrenityClient({required this.baseUrl, required this.websocketUrl});
+  SyrenityClient({
+    required this.baseUrl,
+    required this.websocketUrl,
+    this.useProxy = true,
+  });
 
   void setToken(String token) {
     this.token = token;
@@ -121,5 +126,10 @@ class SyrenityClient {
 
   void debug(String message) {
     events.emit(SyEvents.debug, message);
+  }
+
+  String makeProxyUrl(String url) {
+    if (!useProxy) return url;
+    return "$baseUrl/api/proxy?url=${Uri.encodeComponent(url)}";
   }
 }

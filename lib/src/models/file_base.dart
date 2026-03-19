@@ -15,7 +15,7 @@ class SyFileBase {
     ).hasMatch(url)) {
       return "${client.baseUrl}/files/$url";
     } else if (url.startsWith("http://")) {
-      return url;
+      return client.makeProxyUrl(url);
     } else {
       return badUrl;
     }

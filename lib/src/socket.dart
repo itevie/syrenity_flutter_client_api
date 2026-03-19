@@ -26,6 +26,8 @@ class SyWebsocketManager {
       final message = WsMessage.fromJson(jsonDecode(data), client);
       handleMessage(message);
     });
+
+    await socket.done;
   }
 
   void handleMessage(WsMessage message) async {

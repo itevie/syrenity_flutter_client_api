@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/http.dart';
+import 'package:syrenity_flutter_client_api/src/managers/application_manager.dart';
 import 'package:syrenity_flutter_client_api/src/managers/channel_manager.dart';
 import 'package:syrenity_flutter_client_api/src/managers/invite_manager.dart';
 import 'package:syrenity_flutter_client_api/src/managers/server_manager.dart';
@@ -18,13 +19,14 @@ class SyrenityClient {
   late final UserManager users = UserManager(this);
   late final ChannelManager channels = ChannelManager(this);
   late final ServerManager servers = ServerManager(this);
+  late final SyEventEmitter events = SyEventEmitter(this);
+  late final SyWebsocketManager ws = SyWebsocketManager(this);
+  late final SyInviteManager invites = SyInviteManager(this);
+  late final SyApplicationManager applications = SyApplicationManager(this);
   late final SyFileBase fileBase = SyFileBase(
     this,
     badUrl: "$baseUrl/public/logo192.png",
   );
-  late final SyEventEmitter events = SyEventEmitter(this);
-  late final SyWebsocketManager ws = SyWebsocketManager(this);
-  late final SyInviteManager invites = SyInviteManager(this);
 
   String? token;
   SyUser? _user;

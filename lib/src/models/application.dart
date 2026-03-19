@@ -53,7 +53,7 @@ class SyApplication {
 
   Future<void> inviteTo(int serverId) async {
     await client.http.post(
-      "/applications/$botAccount/servers/$serverId",
+      "/api/applications/$botAccount/servers/$serverId",
       {},
       null,
     );

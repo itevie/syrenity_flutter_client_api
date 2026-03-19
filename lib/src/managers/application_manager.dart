@@ -1,4 +1,3 @@
-import 'package:syrenity_flutter_client_api/src/models/application.dart';
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class SyApplicationManager {
@@ -6,7 +5,7 @@ class SyApplicationManager {
 
   SyApplicationManager(this.client);
 
-  Future<List<SyApplication>> fetchPublic(int serverId) async {
+  Future<List<SyApplication>> fetchPublic() async {
     return await client.http.get<List<SyApplication>, List<dynamic>>(
       "/api/applications/public",
       (c, data) {

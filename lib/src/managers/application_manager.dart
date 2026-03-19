@@ -7,7 +7,7 @@ class SyApplicationManager {
 
   Future<List<SyApplication>> fetchPublic() async {
     return await client.http.get<List<SyApplication>, List<dynamic>>(
-      "/api/applications/public",
+      "/api/public-applications",
       (c, data) {
         return data
             .map((x) => SyApplication.build(c, x as Map<String, dynamic>))

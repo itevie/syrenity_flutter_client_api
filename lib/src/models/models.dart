@@ -13,3 +13,4 @@ export 'server.dart';
 export 'user.dart';
 export 'webhook.dart';
 export "application.dart";
+export "permissions.dart";

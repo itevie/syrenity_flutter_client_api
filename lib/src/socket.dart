@@ -28,7 +28,7 @@ class SyWebsocketManager {
         handleMessage(message);
       },
       onDone: () {
-        client.debug("WebSocket disconnected");
+        client.events.emit(SyEvents.disconnect, socket.closeReason);
       },
     );
   }

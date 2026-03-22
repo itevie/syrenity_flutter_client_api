@@ -24,7 +24,7 @@ class ErrorEvent extends SyEvent<Exception> {
   const ErrorEvent() : super("error");
 }
 
-class DisconnectEvent extends SyEvent<Exception> {
+class DisconnectEvent extends SyEvent<String?> {
   const DisconnectEvent() : super("disconnect");
 }
 

@@ -10,6 +10,7 @@ class SyMember {
   final String? nickname;
   final SyUser? user;
   final SyCustomStatus? status;
+  final int permissions;
 
   SyMember(
     this.client, {
@@ -18,6 +19,7 @@ class SyMember {
     required this.nickname,
     required this.user,
     required this.status,
+    required this.permissions,
   });
 
   factory SyMember.build(SyrenityClient client, Map<String, dynamic> json) {
@@ -27,6 +29,7 @@ class SyMember {
       userId: json['user_id'] as int,
       nickname: json['nickname'] as String?,
       user: json['user'] == null ? null : SyUser.build(client, json['user']),
+      permissions: json['permissions'] as int,
       status:
           json['status'] == null
               ? null

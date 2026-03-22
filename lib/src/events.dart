@@ -24,6 +24,10 @@ class ErrorEvent extends SyEvent<Exception> {
   const ErrorEvent() : super("error");
 }
 
+class DisconnectEvent extends SyEvent<Exception> {
+  const DisconnectEvent() : super("disconnect");
+}
+
 class CreateUserClass extends SyEvent<SyUser> {
   const CreateUserClass() : super("create_user_class");
 }
@@ -69,6 +73,7 @@ class SyEvents {
   static final ready = ReadyEvent();
   static final debug = DebugEvent();
   static final error = ErrorEvent();
+  static final disconnect = DisconnectEvent();
   static final createUser = CreateUserClass();
   static final createChannel = CreateChannelClass();
   static final createServer = CreateServerClass();

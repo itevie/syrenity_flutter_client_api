@@ -20,12 +20,17 @@ class SyWebsocketManager {
 
   Future<void> connect() async {
     socket = await WebSocket.connect(client.websocketUrl);
-    socket.listen((data) {
-      _messages.add(data);
-      client.debug("Received WS: $data");
-      final message = WsMessage.fromJson(jsonDecode(data), client);
-      handleMessage(message);
-    });
+    socket.listen(
+      (data) {
+        _messages.add(data);
+        client.debug("Received WS: $data");
+        final message = WsMessage.fromJson(jsonDecode(data), client);
+        handleMessage(message);
+      },
+      onDone: () {
+        client.debug("WebSocket disconnected");
+      },
+    );
   }
 
   void handleMessage(WsMessage message) async {

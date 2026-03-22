@@ -36,6 +36,10 @@ class CreateServerClass extends SyEvent<SyServer> {
   const CreateServerClass() : super("create_server_class");
 }
 
+class CreateMemberClass extends SyEvent<SyMember> {
+  const CreateMemberClass() : super("create_member_class");
+}
+
 class CreateChannelClass extends SyEvent<SyChannel> {
   const CreateChannelClass() : super("create_channel_class");
 }
@@ -74,10 +78,12 @@ class SyEvents {
   static final debug = DebugEvent();
   static final error = ErrorEvent();
   static final disconnect = DisconnectEvent();
+
   static final createUser = CreateUserClass();
   static final createChannel = CreateChannelClass();
   static final createServer = CreateServerClass();
   static final createCustomStatus = CreateCustomClass();
+  static final createMemberClass = CreateMemberClass();
 
   static final dispatchUserStatusUpdate = EvDispatchUserStatusUpdate();
 

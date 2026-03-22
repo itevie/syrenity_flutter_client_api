@@ -1,6 +1,7 @@
 import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/models/custom_status.dart';
 import 'package:syrenity_flutter_client_api/src/models/user.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class SyMember {
   final SyrenityClient client;
@@ -23,7 +24,7 @@ class SyMember {
   });
 
   factory SyMember.build(SyrenityClient client, Map<String, dynamic> json) {
-    return SyMember(
+    final member = SyMember(
       client,
       guildId: json['guild_id'] as int,
       userId: json['user_id'] as int,
@@ -35,5 +36,9 @@ class SyMember {
               ? null
               : SyCustomStatus.build(client, json['status']),
     );
+
+    client.events.emit(SyEvents.createMemberClass, member);
+
+    return member;
   }
 }

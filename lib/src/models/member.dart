@@ -1,5 +1,6 @@
 import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/models/custom_status.dart';
+import 'package:syrenity_flutter_client_api/src/models/permissions.dart';
 import 'package:syrenity_flutter_client_api/src/models/user.dart';
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
@@ -40,5 +41,9 @@ class SyMember {
     client.events.emit(SyEvents.createMemberClass, member);
 
     return member;
+  }
+
+  bool hasPermission(int permission) {
+    return SyPermission.hasPermission(permissions, permission);
   }
 }

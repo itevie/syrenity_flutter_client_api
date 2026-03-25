@@ -132,4 +132,33 @@ class HttpClient {
 
     return decode(client, body as X);
   }
+
+  Future<T> patch<T, X>(
+    String url,
+    Object? jsonBody,
+    T Function(SyrenityClient client, X)? decode,
+  ) async {
+    client.debug("HTTP Patch: $url");
+
+    final result = await http.patch(
+      Uri.parse("${client.baseUrl}$url"),
+      headers: {
+        'Authorization': "Token ${client.token}",
+        'Content-Type': "application/json",
+      },
+      body: jsonEncode(jsonBody),
+    );
+
+    if (result.statusCode != 200) {
+      throw SyHttpException(result.body, client);
+    }
+
+    final dynamic body = jsonDecode(result.body);
+
+    if (decode == null) {
+      return body as T;
+    }
+
+    return decode(client, body as X);
+  }
 }

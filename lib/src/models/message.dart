@@ -90,6 +90,14 @@ class SyMessage {
     await client.http.rawDelete('/api/channels/$channelId/messages/$id', null);
   }
 
+  Future<void> pin() async {
+    await client.http.patch('/api/channels/$channelId/pins/$id', null, null);
+  }
+
+  Future<void> unpin() async {
+    await client.http.delete('/api/channels/$channelId/pins/$id', null);
+  }
+
   Future<SyChannel> fetchChannel() async {
     return await client.channels.fetch(channelId);
   }

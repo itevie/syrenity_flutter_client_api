@@ -46,4 +46,8 @@ class SyMember {
   bool hasPermission(int permission) {
     return SyPermission.hasPermission(permissions, permission);
   }
+
+  Future<void> remove() async {
+    await client.http.rawDelete('/api/servers/$guildId/members/$userId', null);
+  }
 }

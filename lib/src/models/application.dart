@@ -5,7 +5,7 @@ class SyApplication {
   final SyrenityClient client;
 
   final int id;
-  final String token;
+  final String? token;
   final String applicationName;
   final int botAccount;
   final int ownerId;
@@ -37,7 +37,7 @@ class SyApplication {
     final app = SyApplication(
       client,
       id: json['id'] as int,
-      token: json['token'] as String,
+      token: json['token'] as String?,
       applicationName: json['application_name'] as String,
       botAccount: json['bot_account'] as int,
       ownerId: json['owner_id'] as int,

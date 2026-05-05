@@ -3,6 +3,7 @@ import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/models/friend_request.dart';
 import 'package:syrenity_flutter_client_api/src/models/relationship.dart';
 import 'package:syrenity_flutter_client_api/src/models/server.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class SyUser {
   final SyrenityClient client;
@@ -55,6 +56,17 @@ class SyUser {
       (c, data) {
         return data
             .map((x) => SyServer.build(c, x as Map<String, dynamic>))
+            .toList();
+      },
+    );
+  }
+
+  Future<List<SyApplication>> fetchApplications() async {
+    return await client.http.get<List<SyApplication>, List<dynamic>>(
+      "/api/users/${client.user.id}/applications",
+      (c, data) {
+        return data
+            .map((x) => SyApplication.build(c, x as Map<String, dynamic>))
             .toList();
       },
     );

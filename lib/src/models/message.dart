@@ -91,7 +91,7 @@ class SyMessage {
   }
 
   Future<void> pin() async {
-    await client.http.patch('/api/channels/$channelId/pins/$id', null, null);
+    await client.http.patch('/api/channels/$channelId/pins/$id', {}, null);
   }
 
   Future<void> unpin() async {

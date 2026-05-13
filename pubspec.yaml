@@ -8,6 +8,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  file_picker: ^11.0.2
   http: ^1.6.0
   # path: ^1.8.0
 

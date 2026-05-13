@@ -14,6 +14,8 @@ class SyFileManager {
 
     final base64Data = base64Encode(bytes);
 
+    print(base64Data);
+
     return await client.http.post<SyFile, Map<String, dynamic>>("/api/files", {
       'data': base64Data,
       'file_name': file.name,

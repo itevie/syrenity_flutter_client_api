@@ -9,14 +9,12 @@ class SyFileManager {
 
   SyFileManager(this.client);
 
-  Future<SyFile> upload(File file) async {
-    final bytes = await file.readAsBytes();
+  Future<SyFile> upload(PlatformFile file) async {
+    final bytes = file.bytes ?? await File(file.path!).readAsBytes();
+
     final base64Data = base64Encode(bytes);
 
-    final fileName = file.path.split(Platform.pathSeparator).last;
-
-    // crude mime detection
-    final ext = fileName.split('.').last.toLowerCase();
+    final ext = file.extension?.toLowerCase();
 
     final mime = switch (ext) {
       'png' => 'image/png',
@@ -24,6 +22,7 @@ class SyFileManager {
       'webp' => 'image/webp',
       'gif' => 'image/gif',
       'pdf' => 'application/pdf',
+      'txt' => 'text/plain',
       _ => 'application/octet-stream',
     };
 
@@ -31,7 +30,7 @@ class SyFileManager {
 
     return await client.http.post<SyFile, Map<String, dynamic>>("/api/files", {
       'data': dataUri,
-      'file_name': fileName,
+      'file_name': file.name,
     }, (c, v) => SyFile.build(c, v));
   }
 }

@@ -114,11 +114,5 @@ bool isLink(String value) {
 
   if (uri == null) return false;
 
-  // has protocol/scheme
-  if (uri.hasScheme) return true;
-
-  // bare domains like google.com
-  if (uri.host.isNotEmpty) return true;
-
-  return false;
+  return (uri.scheme == "https" || uri.scheme == "http") && uri.host.isNotEmpty;
 }

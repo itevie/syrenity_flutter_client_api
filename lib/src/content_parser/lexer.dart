@@ -34,12 +34,29 @@ List<LexicalToken> lex(String contents) {
   void flushText() {
     if (buffer.isNotEmpty) {
       tokens.add(LexicalToken(LexicalTokenType.text, buffer.toString()));
+
       buffer.clear();
     }
   }
 
   while (i < contents.length) {
-    final c = contents[i];
+    // try reading until whitespace
+    int end = i;
+
+    while (end < contents.length && !RegExp(r'\s').hasMatch(contents[end])) {
+      end++;
+    }
+
+    final word = contents.substring(i, end);
+
+    if (isLink(word)) {
+      flushText();
+
+      tokens.add(LexicalToken(LexicalTokenType.link, word));
+
+      i = end;
+      continue;
+    }
 
     // multi-char tokens
     if (contents.startsWith("***", i)) {
@@ -63,22 +80,7 @@ List<LexicalToken> lex(String contents) {
       continue;
     }
 
-    if (contents.startsWith("f:", i)) {
-      flushText();
-      tokens.add(LexicalToken(LexicalTokenType.file, "f:"));
-      i += 2;
-      continue;
-    }
-
-    if (contents.startsWith("s:", i)) {
-      flushText();
-      tokens.add(LexicalToken(LexicalTokenType.server, "s:"));
-      i += 2;
-      continue;
-    }
-
-    // single-char tokens
-    switch (c) {
+    switch (contents[i]) {
       case "*":
         flushText();
         tokens.add(LexicalToken(LexicalTokenType.italic, "*"));
@@ -96,37 +98,27 @@ List<LexicalToken> lex(String contents) {
         tokens.add(LexicalToken(LexicalTokenType.code, "`"));
         i++;
         continue;
-
-      case "<":
-        flushText();
-        tokens.add(LexicalToken(LexicalTokenType.openAngle, "<"));
-        i++;
-        continue;
-
-      case ">":
-        flushText();
-        tokens.add(LexicalToken(LexicalTokenType.closeAngle, ">"));
-        i++;
-        continue;
-
-      case "@":
-        flushText();
-        tokens.add(LexicalToken(LexicalTokenType.at, "@"));
-        i++;
-        continue;
-
-      case "#":
-        flushText();
-        tokens.add(LexicalToken(LexicalTokenType.hashtag, "#"));
-        i++;
-        continue;
     }
 
-    // default text
-    buffer.write(c);
+    buffer.write(contents[i]);
     i++;
   }
 
   flushText();
+
   return tokens;
+}
+
+bool isLink(String value) {
+  final uri = Uri.tryParse(value);
+
+  if (uri == null) return false;
+
+  // has protocol/scheme
+  if (uri.hasScheme) return true;
+
+  // bare domains like google.com
+  if (uri.host.isNotEmpty) return true;
+
+  return false;
 }

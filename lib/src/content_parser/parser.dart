@@ -1,15 +1,25 @@
 import 'package:syrenity_flutter_client_api/src/content_parser/lexer.dart';
 import 'package:syrenity_flutter_client_api/src/content_parser/parser_tokens.dart';
 
+class ParsedObjectType {}
+
+class LinkObjectType extends ParsedObjectType {
+  final String url;
+
+  LinkObjectType({required this.url});
+}
+
 class SyParserResponse {
   final List<ParserToken> tokens;
+  final List<ParsedObjectType> objects;
 
-  SyParserResponse(this.tokens);
+  SyParserResponse(this.tokens, this.objects);
 }
 
 class SyContentParser {
   final List<LexicalToken> tokens;
   int position = 0;
+  List<ParsedObjectType> objects = [];
 
   SyContentParser(this.tokens);
 
@@ -34,7 +44,7 @@ class SyContentParser {
       if (token != null) result.add(token);
     }
 
-    return SyParserResponse(result);
+    return SyParserResponse(result, objects);
   }
 
   /// Tries to parse the next token (including nested ones)
@@ -63,6 +73,11 @@ class SyContentParser {
           endType: LexicalTokenType.bold,
           onMatch: (children) => BoldParserToken(children),
         );
+
+      case LexicalTokenType.link:
+        final link = advance().value;
+        objects.add(LinkObjectType(url: link));
+        return LinkParserToken(link);
 
       case LexicalTokenType.text:
         return TextParserToken(advance().value);

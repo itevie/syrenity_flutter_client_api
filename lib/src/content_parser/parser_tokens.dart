@@ -1,4 +1,4 @@
-enum ParserTokenType { text, underline, italic, bold }
+enum ParserTokenType { text, underline, italic, bold, link }
 
 sealed class ParserToken {
   final ParserTokenType type;
@@ -13,6 +13,15 @@ class TextParserToken extends ParserToken {
 
   @override
   String toString() => "Text('$text')";
+}
+
+class LinkParserToken extends ParserToken {
+  final String url;
+
+  LinkParserToken(this.url) : super(type: ParserTokenType.link);
+
+  @override
+  String toString() => "Link($url)";
 }
 
 class UnderlineParserToken extends ParserToken {

@@ -6,7 +6,7 @@ class SyFileBase {
 
   SyFileBase(this.client, {required this.badUrl});
 
-  String? from(String? url, {int? size}) {
+  String from(String? url, {int? size}) {
     if (url == null) return badUrl;
 
     if (RegExp(

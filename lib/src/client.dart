@@ -130,8 +130,8 @@ class SyrenityClient {
     events.emit(SyEvents.debug, message);
   }
 
-  String makeProxyUrl(String url) {
+  String makeProxyUrl(String url, {int? size}) {
     if (!useProxy) return url;
-    return "$baseUrl/api/proxy?use_fallback&url=${Uri.encodeComponent(url)}";
+    return "$baseUrl/api/proxy?use_fallback&url=${Uri.encodeComponent(url)}${size != null ? "&size=$size" : ""}";
   }
 }

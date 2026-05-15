@@ -6,16 +6,16 @@ class SyFileBase {
 
   SyFileBase(this.client, {required this.badUrl});
 
-  String? from(String? url) {
+  String? from(String? url, {int? size}) {
     if (url == null) return badUrl;
 
     if (RegExp(
       r'^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
       caseSensitive: false,
     ).hasMatch(url)) {
-      return "${client.baseUrl}/files/$url";
+      return "${client.baseUrl}/files/$url${size != null ? "?size=$size" : ""}";
     } else if (url.startsWith("http://") || url.startsWith("https://")) {
-      return client.makeProxyUrl(url);
+      return client.makeProxyUrl(url, size: size);
     } else {
       return badUrl;
     }

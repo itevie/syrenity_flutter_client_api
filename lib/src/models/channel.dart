@@ -72,6 +72,7 @@ class SyChannel {
       lastMessageAck:
           json['last_message_ack'] != null
               ? SyMessageAck.build(
+                client,
                 json['last_message_ack'] as Map<String, dynamic>,
               )
               : null,

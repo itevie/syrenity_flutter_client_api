@@ -1,6 +1,7 @@
 import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/models/message.dart';
+import 'package:syrenity_flutter_client_api/src/models/message_ack.dart';
 
 class ChannelMessageQueryOptions {
   final int? amount;
@@ -44,6 +45,7 @@ class SyChannel {
   final String? topic;
   final bool isNsfw;
   final int position;
+  final SyMessageAck? lastMessageAck;
 
   SyChannel(
     this.client, {
@@ -54,6 +56,7 @@ class SyChannel {
     required this.topic,
     required this.isNsfw,
     required this.position,
+    this.lastMessageAck,
   });
 
   factory SyChannel.build(SyrenityClient client, Map<String, dynamic> json) {
@@ -66,6 +69,12 @@ class SyChannel {
       topic: json['topic'] as String?,
       isNsfw: json['is_nsfw'] as bool,
       position: json['position'] as int,
+      lastMessageAck:
+          json['last_message_ack'] != null
+              ? SyMessageAck.build(
+                json['last_message_ack'] as Map<String, dynamic>,
+              )
+              : null,
     );
 
     client.events.emit(SyEvents.createChannel, channel);

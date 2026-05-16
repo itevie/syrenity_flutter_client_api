@@ -73,8 +73,7 @@ class EvDispatchServerMemberRemove extends SyEvent<SyMember> {
   const EvDispatchServerMemberRemove() : super("dispatch_server_member_remove");
 }
 
-class EvDispatchChannelUpdateMessageAck
-    extends SyEvent<DispatchChannelUpdateMessageAck> {
+class EvDispatchChannelUpdateMessageAck extends SyEvent<SyChannel> {
   const EvDispatchChannelUpdateMessageAck()
     : super("dispatch_channel_update_message_ack");
 }

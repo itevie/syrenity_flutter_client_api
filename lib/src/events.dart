@@ -73,6 +73,12 @@ class EvDispatchServerMemberRemove extends SyEvent<SyMember> {
   const EvDispatchServerMemberRemove() : super("dispatch_server_member_remove");
 }
 
+class EvDispatchChannelUpdateMessageAck
+    extends SyEvent<DispatchChannelUpdateMessageAck> {
+  const EvDispatchChannelUpdateMessageAck()
+    : super("dispatch_channel_update_message_ack");
+}
+
 class SyEvents {
   static final ready = ReadyEvent();
   static final debug = DebugEvent();
@@ -90,6 +96,7 @@ class SyEvents {
   static final dispatchCreateMessage = EvDispatchMessageCreate();
   static final dispatchDeleteMessage = EvDispatchMessageDelete();
   static final dispatchChannelStartTyping = EvDispatchChannelStartTyping();
+  static final channelUpdateMessageAck = EvDispatchChannelUpdateMessageAck();
 
   static final dispatchServerMemberAdd = EvDispatchServerMemberAdd();
   static final dispatchServerMemberRemove = EvDispatchServerMemberRemove();

@@ -82,6 +82,10 @@ class SyWebsocketManager {
             client.events.emit(SyEvents.dispatchServerMemberRemove, member);
             break;
 
+          case DispatchChannelUpdateMessageAck(channel: final channel):
+            client.events.emit(SyEvents.channelUpdateMessageAck, channel);
+            break;
+
           // ignore: unreachable_switch_default
           default:
             client.events.emit(

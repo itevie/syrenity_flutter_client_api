@@ -3,6 +3,7 @@ import 'package:syrenity_flutter_client_api/src/models/custom_status.dart';
 import 'package:syrenity_flutter_client_api/src/models/member.dart';
 import 'package:syrenity_flutter_client_api/src/models/message.dart';
 import 'package:syrenity_flutter_client_api/src/ws_messages.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 sealed class DispatchMessage {
   const DispatchMessage();
@@ -43,6 +44,14 @@ sealed class DispatchMessage {
       case "ServerMemberRemove":
         return DispatchServerMemberRemove(
           member: SyMember.build(client, dispatch.originalPayload['member']),
+        );
+
+      case "ChannelUpdateMessageAck":
+        return DispatchChannelUpdateMessageAck(
+          channel: SyChannel.build(
+            client,
+            dispatch.originalPayload['channel'] as Map<String, dynamic>,
+          ),
         );
       default:
         throw Exception("Unknown dispatch type: ${dispatch.type}");
@@ -88,4 +97,10 @@ class DispatchServerMemberRemove extends DispatchMessage {
   final SyMember member;
 
   const DispatchServerMemberRemove({required this.member});
+}
+
+class DispatchChannelUpdateMessageAck extends DispatchMessage {
+  final SyChannel channel;
+
+  const DispatchChannelUpdateMessageAck({required this.channel});
 }

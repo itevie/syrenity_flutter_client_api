@@ -19,7 +19,8 @@ class ChannelMessageQueryOptions {
 
 enum SyChannelType {
   channel,
-  dm;
+  dm,
+  todo;
 
   static SyChannelType fromString(String value) {
     switch (value) {
@@ -27,6 +28,8 @@ enum SyChannelType {
         return SyChannelType.channel;
       case 'dm':
         return SyChannelType.dm;
+      case 'todo':
+        return SyChannelType.todo;
       default:
         throw ArgumentError('Invalid channel type: $value');
     }

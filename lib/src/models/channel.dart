@@ -28,7 +28,7 @@ enum SyChannelType {
         return SyChannelType.channel;
       case 'dm':
         return SyChannelType.dm;
-      case 'todo':
+      case 'to-do':
         return SyChannelType.todo;
       default:
         throw ArgumentError('Invalid channel type: $value');

@@ -1,11 +1,4 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
-import 'package:syrenity_flutter_client_api/src/events.dart';
-import 'package:syrenity_flutter_client_api/src/managers/server_channels_manager.dart';
-import 'package:syrenity_flutter_client_api/src/managers/server_invites_manager.dart';
-import 'package:syrenity_flutter_client_api/src/managers/server_membert_manager.dart';
-import 'package:syrenity_flutter_client_api/src/models/channel.dart';
-import 'package:syrenity_flutter_client_api/src/models/role.dart';
-import 'package:syrenity_flutter_client_api/src/models/user.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class SyServer {
   final SyrenityClient client;
@@ -69,6 +62,17 @@ class SyServer {
       (c, data) {
         return data
             .map((x) => SyRole.build(c, x as Map<String, dynamic>))
+            .toList();
+      },
+    );
+  }
+
+  Future<List<SyInvite>> fetchInvites() async {
+    return await client.http.get<List<SyInvite>, List<dynamic>>(
+      "/api/servers/$id/invites",
+      (c, data) {
+        return data
+            .map((x) => SyInvite.build(c, x as Map<String, dynamic>))
             .toList();
       },
     );

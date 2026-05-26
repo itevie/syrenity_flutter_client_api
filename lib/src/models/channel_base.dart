@@ -73,6 +73,9 @@ class SyChannel {
     return channel;
   }
 
+  bool isTextChannel() => type == SyChannelType.channel;
+  bool isTodoChannel() => type == SyChannelType.todo;
+
   SyTextChannel asTextChannel() {
     if (type != SyChannelType.channel) {
       throw StateError('Channel is not a text channel');

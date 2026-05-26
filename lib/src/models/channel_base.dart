@@ -73,19 +73,37 @@ class SyChannel {
     return channel;
   }
 
-  SyTextChannel asText() {
+  SyTextChannel asTextChannel() {
     if (type != SyChannelType.channel) {
       throw StateError('Channel is not a text channel');
     }
-
-    return this as SyTextChannel;
+    return SyTextChannel(
+      client,
+      id: id,
+      type: type,
+      guildId: guildId,
+      name: name,
+      topic: topic,
+      isNsfw: isNsfw,
+      position: position,
+      lastMessageAck: lastMessageAck,
+    );
   }
 
-  SyTodoChannel asTodo() {
+  SyTodoChannel asTodoChannel() {
     if (type != SyChannelType.todo) {
-      throw StateError('Channel is not a todo channel');
+      throw StateError('Channel is not a to-do channel');
     }
-
-    return this as SyTodoChannel;
+    return SyTodoChannel(
+      client,
+      id: id,
+      type: type,
+      guildId: guildId,
+      name: name,
+      topic: topic,
+      isNsfw: isNsfw,
+      position: position,
+      lastMessageAck: lastMessageAck,
+    );
   }
 }

@@ -1,11 +1,4 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
-import 'package:syrenity_flutter_client_api/src/dispatch_messages.dart';
-import 'package:syrenity_flutter_client_api/src/models/channel.dart';
-import 'package:syrenity_flutter_client_api/src/models/custom_status.dart';
-import 'package:syrenity_flutter_client_api/src/models/member.dart';
-import 'package:syrenity_flutter_client_api/src/models/message.dart';
-import 'package:syrenity_flutter_client_api/src/models/server.dart';
-import 'package:syrenity_flutter_client_api/src/models/user.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 abstract class SyEvent<T> {
   final String name;

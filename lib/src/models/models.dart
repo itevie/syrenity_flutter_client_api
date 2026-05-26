@@ -1,4 +1,5 @@
-export 'channel.dart';
+export 'channel_text.dart';
+export "channel_base.dart";
 export 'custom_status.dart';
 export 'file.dart';
 export 'file_base.dart';
@@ -15,3 +16,4 @@ export 'webhook.dart';
 export "application.dart";
 export "permissions.dart";
 export "role.dart";
+export "todo_item.dart";

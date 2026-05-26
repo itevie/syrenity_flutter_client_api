@@ -1,7 +1,7 @@
 import 'package:syrenity_flutter_client_api/src/client.dart';
+import 'package:syrenity_flutter_client_api/src/models/channel_base.dart';
 
 import 'server.dart';
-import 'channel.dart';
 
 class SyInvite {
   final SyrenityClient client;

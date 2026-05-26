@@ -1,5 +1,4 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
-import 'package:syrenity_flutter_client_api/src/models/channel.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class ChannelManager {
   final SyrenityClient client;

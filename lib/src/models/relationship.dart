@@ -1,7 +1,4 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
-
-import 'channel.dart';
-import 'user.dart';
+import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class SyRelationship {
   final SyrenityClient client;

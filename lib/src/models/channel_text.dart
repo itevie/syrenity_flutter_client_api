@@ -1,12 +1,12 @@
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
-class ChannelMessageQueryOptions {
+class TextChannelMessageQueryOptions {
   final int? amount;
   final int? startAt;
   final int? fromUser;
   final bool? isPinned;
 
-  ChannelMessageQueryOptions({
+  TextChannelMessageQueryOptions({
     this.amount,
     this.startAt,
     this.fromUser,
@@ -39,7 +39,7 @@ class SyTextChannel extends SyChannel {
     await client.http.post("/api/channels/$id/start-typing", {}, null);
   }
 
-  Future<List<SyMessage>> query([ChannelMessageQueryOptions? options]) async {
+  Future<List<SyMessage>> query([TextChannelMessageQueryOptions? options]) async {
     final queryParams = <String, String>{};
 
     if (options?.amount != null) {

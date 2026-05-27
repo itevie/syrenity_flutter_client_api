@@ -59,7 +59,7 @@ class SyWebsocketManager {
       ):
         switch (payload) {
           case DispatchMessageCreate(message: final message):
-            client.events.emit(SyEvents.dispatchCreateMessage, message);
+            client.events.emit(SyEvents.dispatchMessageCreate, message);
             break;
 
           case DispatchMessageUpdate(message: final message):
@@ -67,7 +67,7 @@ class SyWebsocketManager {
             break;
 
           case DispatchMessageDelete(messageId: final messageId):
-            client.events.emit(SyEvents.dispatchDeleteMessage, messageId);
+            client.events.emit(SyEvents.dispatchMessageDelete, messageId);
             break;
 
           case DispatchTodoUpdate(todo: final todo):
@@ -76,6 +76,10 @@ class SyWebsocketManager {
 
           case DispatchTodoCreate(todo: final todo):
             client.events.emit(SyEvents.dispatchTodoCreate, todo);
+            break;
+
+          case DispatchTodoDelete(id: final id):
+            client.events.emit(SyEvents.dispatchTodoDelete, id);
             break;
 
           case DispatchChannelStartTyping(channelId: _, userId: _):

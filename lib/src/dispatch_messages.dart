@@ -34,6 +34,9 @@ sealed class DispatchMessage {
           todo: SyTodoItem.build(client, dispatch.originalPayload['todo']),
         );
 
+      case "TodoDelete":
+        return DispatchTodoDelete(id: dispatch.originalPayload['todo_id']);
+
       case "UserStatusUpdate":
         return DispatchUserStatusUpdate(
           status: SyCustomStatus.build(
@@ -98,6 +101,12 @@ class DispatchTodoCreate extends DispatchMessage {
   final SyTodoItem todo;
 
   const DispatchTodoCreate({required this.todo});
+}
+
+class DispatchTodoDelete extends DispatchMessage {
+  final int id;
+
+  const DispatchTodoDelete({required this.id});
 }
 
 class DispatchUserStatusUpdate extends DispatchMessage {

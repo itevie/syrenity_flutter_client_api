@@ -1,11 +1,21 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/content_parser/lexer.dart';
-import 'package:syrenity_flutter_client_api/src/content_parser/parser.dart';
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
-import 'user.dart';
-import 'reaction.dart';
-import 'webhook.dart';
+class MessageEditOptions {
+  final String? content;
+
+  const MessageEditOptions({this.content});
+
+  Map<String, dynamic> toJson() {
+    final body = <String, dynamic>{};
+
+    if (content != null) {
+      body["content"] = content;
+    }
+
+    return body;
+  }
+}
 
 class SyMessage {
   final SyrenityClient client;
@@ -100,5 +110,13 @@ class SyMessage {
 
   Future<SyChannel> fetchChannel() async {
     return await client.channels.fetch(channelId);
+  }
+
+  Future<SyMessage> edit(MessageEditOptions options) async {
+    return await client.http.patch<SyMessage, Map<String, dynamic>>(
+      "/api/channels/$channelId/messages/$id",
+      options.toJson(),
+      (client, value) => SyMessage.build(client, value),
+    );
   }
 }

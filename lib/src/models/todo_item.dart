@@ -80,6 +80,10 @@ class SyTodoItem {
     );
   }
 
+  Future<void> delete() async {
+    await client.http.rawDelete('/api/channels/$channelId/todos/$id', null);
+  }
+
   Future<SyTodoItem> edit(TodoEditOptions options) async {
     return await client.http.patch<SyTodoItem, Map<String, dynamic>>(
       "/api/channels/$channelId/todos/$id",

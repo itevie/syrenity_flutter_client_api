@@ -62,6 +62,10 @@ class SyWebsocketManager {
             client.events.emit(SyEvents.dispatchCreateMessage, message);
             break;
 
+          case DispatchMessageUpdate(message: final message):
+            client.events.emit(SyEvents.dispatchMessageUpdate, message);
+            break;
+
           case DispatchMessageDelete(messageId: final messageId):
             client.events.emit(SyEvents.dispatchDeleteMessage, messageId);
             break;

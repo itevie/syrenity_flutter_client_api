@@ -1,7 +1,3 @@
-import 'package:syrenity_flutter_client_api/src/client.dart';
-import 'package:syrenity_flutter_client_api/src/models/custom_status.dart';
-import 'package:syrenity_flutter_client_api/src/models/member.dart';
-import 'package:syrenity_flutter_client_api/src/models/message.dart';
 import 'package:syrenity_flutter_client_api/src/ws_messages.dart';
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
@@ -15,6 +11,11 @@ sealed class DispatchMessage {
     switch (dispatch.type) {
       case "MessageCreate":
         return DispatchMessageCreate(
+          message: SyMessage.build(client, dispatch.originalPayload['message']),
+        );
+
+      case "MessageUpdate":
+        return DispatchMessageUpdate(
           message: SyMessage.build(client, dispatch.originalPayload['message']),
         );
 
@@ -63,6 +64,12 @@ class DispatchMessageCreate extends DispatchMessage {
   final SyMessage message;
 
   const DispatchMessageCreate({required this.message});
+}
+
+class DispatchMessageUpdate extends DispatchMessage {
+  final SyMessage message;
+
+  const DispatchMessageUpdate({required this.message});
 }
 
 class DispatchUserStatusUpdate extends DispatchMessage {

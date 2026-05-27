@@ -54,6 +54,10 @@ class EvDispatchMessageDelete extends SyEvent<int> {
   const EvDispatchMessageDelete() : super("dispatch_message_delete");
 }
 
+class EvDispatchTodoUpdate extends SyEvent<SyTodoItem> {
+  const EvDispatchTodoUpdate() : super("dispatch_todo_update");
+}
+
 class EvDispatchUserStatusUpdate extends SyEvent<SyCustomStatus> {
   const EvDispatchUserStatusUpdate() : super("dispatch_user_status_update");
 }
@@ -92,6 +96,7 @@ class SyEvents {
   static final dispatchCreateMessage = EvDispatchMessageCreate();
   static final dispatchMessageUpdate = EvDispatchMessageUpdate();
   static final dispatchDeleteMessage = EvDispatchMessageDelete();
+  static final dispatchTodoUpdate = EvDispatchTodoUpdate();
   static final dispatchChannelStartTyping = EvDispatchChannelStartTyping();
   static final channelUpdateMessageAck = EvDispatchChannelUpdateMessageAck();
 

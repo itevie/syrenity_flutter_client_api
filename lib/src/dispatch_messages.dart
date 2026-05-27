@@ -24,6 +24,11 @@ sealed class DispatchMessage {
           messageId: dispatch.originalPayload['message_id'],
         );
 
+      case "TodoUpdate":
+        return DispatchTodoUpdate(
+          todo: SyTodoItem.build(client, dispatch.originalPayload['todo']),
+        );
+
       case "UserStatusUpdate":
         return DispatchUserStatusUpdate(
           status: SyCustomStatus.build(
@@ -72,16 +77,22 @@ class DispatchMessageUpdate extends DispatchMessage {
   const DispatchMessageUpdate({required this.message});
 }
 
-class DispatchUserStatusUpdate extends DispatchMessage {
-  final SyCustomStatus status;
-
-  const DispatchUserStatusUpdate({required this.status});
-}
-
 class DispatchMessageDelete extends DispatchMessage {
   final int messageId;
 
   const DispatchMessageDelete({required this.messageId});
+}
+
+class DispatchTodoUpdate extends DispatchMessage {
+  final SyTodoItem todo;
+
+  const DispatchTodoUpdate({required this.todo});
+}
+
+class DispatchUserStatusUpdate extends DispatchMessage {
+  final SyCustomStatus status;
+
+  const DispatchUserStatusUpdate({required this.status});
 }
 
 class DispatchChannelStartTyping extends DispatchMessage {

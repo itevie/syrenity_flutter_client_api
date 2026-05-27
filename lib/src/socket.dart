@@ -70,6 +70,10 @@ class SyWebsocketManager {
             client.events.emit(SyEvents.dispatchDeleteMessage, messageId);
             break;
 
+          case DispatchTodoUpdate(todo: final todo):
+            client.events.emit(SyEvents.dispatchTodoUpdate, todo);
+            break;
+
           case DispatchChannelStartTyping(channelId: _, userId: _):
             client.events.emit(SyEvents.dispatchChannelStartTyping, payload);
             break;

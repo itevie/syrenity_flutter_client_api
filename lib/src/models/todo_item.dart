@@ -1,5 +1,41 @@
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
+class TodoEditOptions {
+  final String? name;
+  final String? description;
+  final bool? completed;
+  final int? groupId;
+
+  const TodoEditOptions({
+    this.name,
+    this.description,
+    this.completed,
+    this.groupId,
+  });
+
+  Map<String, dynamic> toJson() {
+    final body = <String, dynamic>{};
+
+    if (name != null) {
+      body["name"] = name;
+    }
+
+    if (description != null) {
+      body["description"] = description;
+    }
+
+    if (completed != null) {
+      body["completed"] = completed;
+    }
+
+    if (groupId != null) {
+      body["group_id"] = groupId;
+    }
+
+    return body;
+  }
+}
+
 class SyTodoItem {
   final SyrenityClient client;
 
@@ -41,6 +77,14 @@ class SyTodoItem {
               : DateTime.parse(json['completed_at'] as String),
       completed: json['completed'] as bool,
       groupId: json['group_id'] as int?,
+    );
+  }
+
+  Future<SyTodoItem> edit(TodoEditOptions options) async {
+    return await client.http.patch<SyTodoItem, Map<String, dynamic>>(
+      "/api/channels/$channelId/todos/$id",
+      options.toJson(),
+      (client, value) => SyTodoItem.build(client, value),
     );
   }
 }

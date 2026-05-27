@@ -27,6 +27,14 @@ class SyTodoChannel extends SyChannel {
     super.lastMessageAck,
   });
 
+  Future<SyTodoItem> send(String name) async {
+    return await client.http.post<SyTodoItem, Map<String, dynamic>>(
+      "/api/channels/$id/todos",
+      {'name': name},
+      (client, value) => SyTodoItem.build(client, value),
+    );
+  }
+
   Future<List<SyTodoItem>> query([
     TodoChannelMessageQueryOptions? options,
   ]) async {

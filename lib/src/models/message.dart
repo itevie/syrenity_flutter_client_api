@@ -1,4 +1,5 @@
 import 'package:syrenity_flutter_client_api/src/content_parser/lexer.dart';
+import 'package:syrenity_flutter_client_api/src/models/embed.dart';
 import 'package:syrenity_flutter_client_api/syrenity_flutter_client_api.dart';
 
 class MessageEditOptions {
@@ -38,6 +39,8 @@ class SyMessage {
   final String? webhookId;
   final SyWebhook? webhook;
 
+  final List<SyEmbed> embeds;
+
   final int? proxyId;
 
   SyMessage(
@@ -56,6 +59,7 @@ class SyMessage {
     required this.webhookId,
     required this.webhook,
     required this.proxyId,
+    required this.embeds,
   });
 
   factory SyMessage.build(SyrenityClient client, Map<String, dynamic> json) {
@@ -77,6 +81,11 @@ class SyMessage {
       reactions:
           (json['reactions'] as List<dynamic>)
               .map((e) => SyReaction.build(client, e as Map<String, dynamic>))
+              .toList(),
+
+      embeds:
+          (json['embeds'] as List<dynamic>)
+              .map((e) => SyEmbed.build(client, e as Map<String, dynamic>))
               .toList(),
 
       webhookId: json['webhook_id'] as String?,

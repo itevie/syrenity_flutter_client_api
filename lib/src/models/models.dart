@@ -18,3 +18,4 @@ export "application.dart";
 export "permissions.dart";
 export "role.dart";
 export "todo_item.dart";
+export "embed.dart";

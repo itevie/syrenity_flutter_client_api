@@ -11,11 +11,11 @@ class SyEmbed {
   final int? colour;
   final String? url;
 
-  final int? thumbnailFile;
-  final int? imageFile;
+  final String? thumbnailFile;
+  final String? imageFile;
 
   final String? authorName;
-  final int? authorIconFile;
+  final String? authorIconFile;
   final String? authorUrl;
 
   final String? footerText;
@@ -54,11 +54,11 @@ class SyEmbed {
       colour: json['colour'] as int?,
       url: json['url'] as String?,
 
-      thumbnailFile: json['thumbnail_file'] as int?,
-      imageFile: json['image_file'] as int?,
+      thumbnailFile: json['thumbnail_file'] as String?,
+      imageFile: json['image_file'] as String?,
 
       authorName: json['author_name'] as String?,
-      authorIconFile: json['author_icon_file'] as int?,
+      authorIconFile: json['author_icon_file'] as String?,
       authorUrl: json['author_url'] as String?,
 
       footerText: json['footer_text'] as String?,

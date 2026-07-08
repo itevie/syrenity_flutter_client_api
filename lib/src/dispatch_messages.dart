@@ -50,6 +50,11 @@ sealed class DispatchMessage {
           userId: dispatch.originalPayload['user_id'],
         );
 
+      case "ChannelOrderUpdate":
+        return DispatchChannelOrderUpdate(
+          channels: List<int>.from(dispatch.originalPayload['channels']),
+        );
+
       case "ServerMemberAdd":
         return DispatchServerMemberAdd(
           member: SyMember.build(client, dispatch.originalPayload['member']),
@@ -123,6 +128,12 @@ class DispatchChannelStartTyping extends DispatchMessage {
     required this.channelId,
     required this.userId,
   });
+}
+
+class DispatchChannelOrderUpdate extends DispatchMessage {
+  final List<int> channels;
+
+  const DispatchChannelOrderUpdate({required this.channels});
 }
 
 class DispatchServerMemberAdd extends DispatchMessage {

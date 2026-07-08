@@ -78,6 +78,14 @@ class SyServer {
     );
   }
 
+  Future<void> updateChannelOrder(Map<int, int> channelOrder) async {
+    await client.http.patch(
+      "/api/servers/$id/channels-order",
+      channelOrder,
+      null,
+    );
+  }
+
   Future<void> leave() async {
     await client.http.delete("/api/users/${client.user.id}/servers/$id", {});
   }

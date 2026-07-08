@@ -81,7 +81,7 @@ class SyServer {
   Future<void> updateChannelOrder(Map<int, int> channelOrder) async {
     await client.http.patch(
       "/api/servers/$id/channels-order",
-      channelOrder,
+      channelOrder.map((key, value) => MapEntry(key.toString(), value)),
       null,
     );
   }

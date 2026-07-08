@@ -8,5 +8,7 @@ export "src/content_parser/parser.dart";
 export "src/content_parser/lexer.dart";
 export "src/content_parser/parser_tokens.dart";
 
+export "src/socket.dart";
+
 export 'src/models/models.dart';
 export 'src/managers/managers.dart';

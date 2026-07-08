@@ -86,8 +86,11 @@ class SyWebsocketManager {
             client.events.emit(SyEvents.dispatchChannelStartTyping, payload);
             break;
 
-          case DispatchChannelOrderUpdate(channels: final channels):
-            client.events.emit(SyEvents.dispatchChannelOrderUpdate, channels);
+          case DispatchChannelOrderUpdate(channels: final channelOrder):
+            client.events.emit(
+              SyEvents.dispatchChannelOrderUpdate,
+              channelOrder,
+            );
             break;
 
           case DispatchUserStatusUpdate(status: final status):

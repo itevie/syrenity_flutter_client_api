@@ -7,6 +7,16 @@ import 'package:syrenity_flutter_client_api/src/dispatch_messages.dart';
 import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/ws_messages.dart';
 
+class SpecialDispatchChannelUpdateOrder {
+  final List<int> channels;
+  final int? guildId;
+
+  SpecialDispatchChannelUpdateOrder({
+    required this.channels,
+    required this.guildId,
+  });
+}
+
 class SyWebsocketManager {
   final SyrenityClient client;
 
@@ -51,7 +61,7 @@ class SyWebsocketManager {
         break;
 
       case WsMsgDispatch(
-        guildId: final _,
+        guildId: final guildId,
         channelId: final _,
         type: final type,
         originalPayload: final _,
@@ -89,7 +99,10 @@ class SyWebsocketManager {
           case DispatchChannelOrderUpdate(channels: final channelOrder):
             client.events.emit(
               SyEvents.dispatchChannelOrderUpdate,
-              channelOrder,
+              SpecialDispatchChannelUpdateOrder(
+                channels: channelOrder,
+                guildId: guildId,
+              ),
             );
             break;
 

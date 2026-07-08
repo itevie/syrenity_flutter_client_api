@@ -74,7 +74,8 @@ class EvDispatchChannelStartTyping extends SyEvent<DispatchChannelStartTyping> {
   const EvDispatchChannelStartTyping() : super("dispatch_channel_start_Typing");
 }
 
-class EvDispatchChannelOrderUpdate extends SyEvent<DispatchChannelOrderUpdate> {
+class EvDispatchChannelOrderUpdate
+    extends SyEvent<SpecialDispatchChannelUpdateOrder> {
   const EvDispatchChannelOrderUpdate() : super("dispatch_channel_order_update");
 }
 

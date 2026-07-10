@@ -50,7 +50,7 @@ sealed class DispatchMessage {
           userId: dispatch.originalPayload['user_id'],
         );
 
-      case "ChannelOrderUpdate":
+      case "ChannelPositionUpdate":
         return DispatchChannelOrderUpdate(
           channels: List<int>.from(dispatch.originalPayload['channels']),
         );

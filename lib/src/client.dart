@@ -64,26 +64,41 @@ class SyrenityClient {
   }
 
   Future<String> fetchSession(String email, String password) async {
-    final response = await http.rawPost(
-      "/auth/password",
-      '{"username":"$email","password":"$password"}',
-      headers: {"Content-Type": "application/json"},
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception("Login failed");
-    }
-
     String? session;
 
-    if (!kIsWeb) {
+    if (kIsWeb) {
+      final client = BrowserClient()..withCredentials = true;
+
+      final response = await client.post(
+        Uri.parse("$baseUrl/auth/password"),
+        '{"username":"$email","password":"$password"}',
+        headers: {"Content-Type": "application/json"},
+      );
+
+      if (response.statusCode != 200) {
+        client.close();
+        throw Exception("Login failed");
+      }
+
+      // Browser stores the cookie automatically
+      client.close();
+    } else {
+      final response = await http.rawPost(
+        "/auth/password",
+        '{"username":"$email","password":"$password"}',
+        headers: {"Content-Type": "application/json"},
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Login failed");
+      }
+
       final cookie = response.headers['set-cookie'];
 
       if (cookie == null) {
         throw Exception("No session cookie returned");
       }
 
-      // Extract connect.sid
       session = cookie.split(';').first;
     }
 
@@ -93,7 +108,7 @@ class SyrenityClient {
   Future<String> _getToken(String? session) async {
     late Response response;
 
-    if (session == null) {
+    if (kIsWeb) {
       final client = BrowserClient()..withCredentials = true;
 
       response = await client.post(
@@ -106,7 +121,7 @@ class SyrenityClient {
       response = await http.rawPost(
         "/auth/get-token",
         null,
-        headers: {"Cookie": session, "Content-Type": "application/json"},
+        headers: {"Cookie": session!, "Content-Type": "application/json"},
       );
     }
 

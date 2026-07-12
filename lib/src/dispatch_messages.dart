@@ -55,6 +55,11 @@ sealed class DispatchMessage {
           channels: List<int>.from(dispatch.originalPayload['channels']),
         );
 
+      case "ChannelCreate":
+        return DispatchChannelCreate(
+          channel: SyChannel.build(client, dispatch.originalPayload["channel"]),
+        );
+
       case "ServerMemberAdd":
         return DispatchServerMemberAdd(
           member: SyMember.build(client, dispatch.originalPayload['member']),
@@ -134,6 +139,12 @@ class DispatchChannelOrderUpdate extends DispatchMessage {
   final List<int> channels;
 
   const DispatchChannelOrderUpdate({required this.channels});
+}
+
+class DispatchChannelCreate extends DispatchMessage {
+  final SyChannel channel;
+
+  const DispatchChannelCreate({required this.channel});
 }
 
 class DispatchServerMemberAdd extends DispatchMessage {

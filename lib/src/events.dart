@@ -79,6 +79,10 @@ class EvDispatchChannelOrderUpdate
   const EvDispatchChannelOrderUpdate() : super("dispatch_channel_order_update");
 }
 
+class EvDispatchChannelCreate extends SyEvent<SyChannel> {
+  const EvDispatchChannelCreate() : super("dispatch_channel_create");
+}
+
 class EvDispatchServerMemberAdd extends SyEvent<SyMember> {
   const EvDispatchServerMemberAdd() : super("dispatch_server_member_add");
 }
@@ -114,6 +118,7 @@ class SyEvents {
   static final dispatchTodoDelete = EvDispatchTodoDelete();
   static final dispatchChannelStartTyping = EvDispatchChannelStartTyping();
   static final dispatchChannelOrderUpdate = EvDispatchChannelOrderUpdate();
+  static final dispatchChannelCreate = EvDispatchChannelCreate();
   static final channelUpdateMessageAck = EvDispatchChannelUpdateMessageAck();
 
   static final dispatchServerMemberAdd = EvDispatchServerMemberAdd();

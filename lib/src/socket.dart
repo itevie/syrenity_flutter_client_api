@@ -106,6 +106,10 @@ class SyWebsocketManager {
             );
             break;
 
+          case DispatchChannelCreate(:final channel):
+            client.events.emit(SyEvents.dispatchChannelCreate, channel);
+            break;
+
           case DispatchUserStatusUpdate(status: final status):
             client.events.emit(SyEvents.dispatchUserStatusUpdate, status);
             break;

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:http/browser_client.dart';
 import 'package:http/http.dart';
 import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/http.dart';

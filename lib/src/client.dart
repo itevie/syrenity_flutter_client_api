@@ -14,6 +14,7 @@ import 'package:syrenity_flutter_client_api/src/models/file_base.dart';
 import 'package:syrenity_flutter_client_api/src/models/user.dart';
 import 'package:syrenity_flutter_client_api/src/socket.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'client_provider.dart'; // <--- Your new conditional import
 
 class SyrenityClient {
   final String baseUrl;
@@ -67,7 +68,8 @@ class SyrenityClient {
     String? session;
 
     if (kIsWeb) {
-      final client = BrowserClient()..withCredentials = true;
+      // getPlatformClient() returns your configured BrowserClient here!
+      final client = getPlatformClient();
 
       final response = await client.post(
         Uri.parse("$baseUrl/auth/password"),
@@ -83,6 +85,7 @@ class SyrenityClient {
       // Browser stores the cookie automatically
       client.close();
     } else {
+      // You can keep your custom rawPost here, or also use getPlatformClient()
       final response = await http.rawPost(
         "/auth/password",
         '{"username":"$email","password":"$password"}',
@@ -109,7 +112,8 @@ class SyrenityClient {
     late Response response;
 
     if (kIsWeb) {
-      final client = BrowserClient()..withCredentials = true;
+      // getPlatformClient() returns your configured BrowserClient here!
+      final client = getPlatformClient();
 
       response = await client.post(
         Uri.parse("$baseUrl/auth/get-token"),

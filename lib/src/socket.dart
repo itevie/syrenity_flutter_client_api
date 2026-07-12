@@ -29,7 +29,9 @@ class SyWebsocketManager {
   Stream<String> get messages => _messages.stream;
 
   Future<void> connect() async {
+    client.debug("Attempting to connect...");
     socket = await WebSocket.connect(client.websocketUrl);
+    client.debug("WS Connection established");
     socket.listen(
       (data) {
         _messages.add(data);
@@ -38,6 +40,7 @@ class SyWebsocketManager {
         handleMessage(message);
       },
       onDone: () {
+        client.debug("WS Disconnect");
         client.events.emit(SyEvents.disconnect, socket.closeReason);
       },
     );

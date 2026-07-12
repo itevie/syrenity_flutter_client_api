@@ -29,7 +29,7 @@ class SyWebsocketManager {
   Stream<String> get messages => _messages.stream;
 
   Future<void> connect() async {
-    client.debug("Attempting to connect...");
+    client.debug("Attempting to connect to ${client.websocketUrl}...");
     socket = await WebSocket.connect(client.websocketUrl);
     client.debug("WS Connection established");
     socket.listen(

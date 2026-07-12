@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:io';
 
 import 'package:syrenity_flutter_client_api/src/client.dart';
 import 'package:syrenity_flutter_client_api/src/dispatch_messages.dart';
@@ -23,7 +22,7 @@ class SyWebsocketManager {
 
   SyWebsocketManager(this.client);
 
-  late WebSocketChannel socket;
+  late WebSocket socket;
 
   final StreamController<String> _messages = StreamController.broadcast();
 
@@ -31,11 +30,9 @@ class SyWebsocketManager {
 
   Future<void> connect() async {
     client.debug("Attempting to connect to ${client.websocketUrl}...");
-    socket = WebSocketChannel.connect(Uri.parse(client.websocketUrl));
-
-    // socket = await WebSocket.connect(client.websocketUrl);
+    socket = await WebSocket.connect(client.websocketUrl);
     client.debug("WS Connection established");
-    socket.stream.listen(
+    socket.listen(
       (data) {
         _messages.add(data);
         client.debug("Received WS: $data");
@@ -149,11 +146,11 @@ class SyWebsocketManager {
   }
 
   void send(String message) {
-    socket.sink.add(message);
+    socket.add(message);
   }
 
   void dispose() {
-    socket.sink.close();
+    socket.close();
     _messages.close();
   }
 }

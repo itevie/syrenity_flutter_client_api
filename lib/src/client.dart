@@ -71,7 +71,7 @@ class SyrenityClient {
 
       final response = await client.post(
         Uri.parse("$baseUrl/auth/password"),
-        '{"username":"$email","password":"$password"}',
+        body: '{"username":"$email","password":"$password"}',
         headers: {"Content-Type": "application/json"},
       );
 

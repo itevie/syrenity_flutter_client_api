@@ -22,6 +22,17 @@ enum SyChannelType {
     }
   }
 
+  String toServerName(SyChannelType type) {
+    switch (type) {
+      case SyChannelType.channel:
+        return "channel";
+      case SyChannelType.dm:
+        return "dm";
+      case SyChannelType.todo:
+        return "to-do";
+    }
+  }
+
   String toJson() => name;
 }
 

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart';
 import 'package:syrenity_flutter_client_api/src/events.dart';
 import 'package:syrenity_flutter_client_api/src/http.dart';
 import 'package:syrenity_flutter_client_api/src/managers/application_manager.dart';
@@ -11,6 +13,7 @@ import 'package:syrenity_flutter_client_api/src/managers/user_manager.dart';
 import 'package:syrenity_flutter_client_api/src/models/file_base.dart';
 import 'package:syrenity_flutter_client_api/src/models/user.dart';
 import 'package:syrenity_flutter_client_api/src/socket.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SyrenityClient {
   final String baseUrl;
@@ -71,24 +74,41 @@ class SyrenityClient {
       throw Exception("Login failed");
     }
 
-    final cookie = response.headers['set-cookie'];
+    String? session;
 
-    if (cookie == null) {
-      throw Exception("No session cookie returned");
+    if (!kIsWeb) {
+      final cookie = response.headers['set-cookie'];
+
+      if (cookie == null) {
+        throw Exception("No session cookie returned");
+      }
+
+      // Extract connect.sid
+      session = cookie.split(';').first;
     }
-
-    // Extract connect.sid
-    final session = cookie.split(';').first;
 
     return await _getToken(session);
   }
 
-  Future<String> _getToken(String session) async {
-    final response = await http.rawPost(
-      "/auth/get-token",
-      null,
-      headers: {"Cookie": session, "Content-Type": "application/json"},
-    );
+  Future<String> _getToken(String? session) async {
+    late Response response;
+
+    if (session == null) {
+      final client = BrowserClient()..withCredentials = true;
+
+      response = await client.post(
+        Uri.parse("$baseUrl/auth/get-token"),
+        headers: {"Content-Type": "application/json"},
+      );
+
+      client.close();
+    } else {
+      response = await http.rawPost(
+        "/auth/get-token",
+        null,
+        headers: {"Cookie": session, "Content-Type": "application/json"},
+      );
+    }
 
     if (response.statusCode != 200) {
       throw Exception("Failed to get token (${response.statusCode})");
